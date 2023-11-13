@@ -1,0 +1,24 @@
+Task,Start Date,Days Required,Due Date
+Circuit Design,17-10-2023,8,24-10-2023
+Procurement of componets,25-10-2023,5,29-10-2023
+RF Module Interfacing,30-10-2023,15,13-11-2023
+GSM Module Interfacing,14-11-2023,15,28-11-2023
+Camera Module,29-11-2023,7,05-12-2023
+Wifi Module,06-12-2023,5,10-12-2023
+Power Supply for MCUs,11-12-2023,7,17-12-2023
+Testing of Complete Hardware module,18-12-2023,5,22-12-2023
+Data Collection,23-12-2023,4,26-12-2023
+Model Training,27-12-2023,45,09-02-2024
+Model Testing and Validation,10-02-2024,10,19-02-2024
+Model Deployment,20-02-2024,3,22-02-2024
+Backend Project Initalization,23-02-2024,5,27-02-2024
+API Development,28-02-2024,25,23-03-2024
+WebSocket Development,24-03-2024,12,04-04-2024
+AI Model Integration,05-04-2024,5,09-04-2024
+User Authentication Module,10-04-2024,5,14-04-2024
+Unit testing for Backend,15-04-2024,7,21-04-2024
+Angular Project Initaliztion,22-04-2024,4,25-04-2024
+WebSocket Hub Creation,26-04-2024,10,05-05-2024
+Webpage development,06-05-2024,10,15-05-2024
+Auth Guards for authentication,16-05-2024,2,17-05-2024
+Testing Admin Dashboard,18-05-2024,7,24-05-2024
