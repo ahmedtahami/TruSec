@@ -7,15 +7,8 @@ import { SignalRService } from './services/signalR.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'TruSec.WebClient';
-  public expression!: string;
 
-  constructor(private signalRService: SignalRService) { }
-
+  constructor() { }
   ngOnInit() {
-    this.signalRService.startConnection();
-    this.signalRService.addTransferChartDataListener((data: string) => {
-      this.expression = data;
-    });
   }
 }
