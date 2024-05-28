@@ -1,7 +1,9 @@
-﻿namespace TruSec.Backend.Interfaces
+﻿using TruSec.Backend.Controllers;
+
+namespace TruSec.Backend.Interfaces
 {
     public interface IExpressionsHub
     {
-        Task SendExpression(string message);
+        Task SendExpression(ExpressionData data);
     }
 }

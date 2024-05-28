@@ -17,8 +17,8 @@ export class SignalRService {
     this.hubConnection.start().catch(err => console.error('Error while starting connection: ' + err));
   }
 
-  public addTransferChartDataListener(callback: (data: string) => void) {
-    this.hubConnection.on('ReceiveExpression', (data) => {
+  public addTransferDataListener(callback: (data: any) => void) {
+    this.hubConnection.on('ReceiveExpression', (data: any) => {
       callback(data);
     });
   }
