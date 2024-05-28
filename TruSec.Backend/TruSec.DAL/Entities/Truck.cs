@@ -8,7 +8,7 @@ namespace TruSec.DAL.Entities
         public int Id { get; set; }
         public string ModelName { get; set; }
         public string RegistrationNumber { get; set; }
-        public string ImageSrc { get; set; }
+        public string? ImageSrc { get; set; }
         public int CompanyId { get; set; }
 
         [ForeignKey(nameof(CompanyId))]

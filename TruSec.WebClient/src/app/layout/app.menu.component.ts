@@ -21,6 +21,13 @@ export class AppMenuComponent implements OnInit {
           { label: 'Dashboard', icon: fonts.faHome, routerLink: ['/dashboard'] }
         ]
       },
+      {
+        label: 'Management',
+        items: [
+          { label: 'Companies', icon: fonts.faBuilding, routerLink: ['/companies'] },
+          { label: 'Trucks', icon: fonts.faTruck, routerLink: ['/trucks'] }
+        ]
+      },
 
     ];
   }

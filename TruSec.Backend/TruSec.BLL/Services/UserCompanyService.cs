@@ -27,7 +27,7 @@ namespace TruSec.BLL.Services
 
         public async Task<IEnumerable<UserCompanyDto>> GetAsync()
         {
-            var userCompanies = await _unitOfWork.UserCompanies.GetAllAsync();
+            var userCompanies = await _unitOfWork.UserCompanies.GetAllAsync(false);
             return _mapper.Map<IEnumerable<UserCompanyDto>>(userCompanies);
         }
 

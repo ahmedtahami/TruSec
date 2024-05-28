@@ -14,6 +14,11 @@ namespace TruSec.BLL.Configurations
         public MappingProfile()
         {
             CreateMap<Company, CompanyDto>().ReverseMap();
+            CreateMap<Truck, TruckDto>().ReverseMap();
+            CreateMap<TruckDataLog, TruckDataLogDto>().ReverseMap();
+            CreateMap<TruckSecret, TruckSecretDto>().ReverseMap();
+            CreateMap<UserCompany, UserCompanyDto>().ReverseMap();
+            CreateMap<ApplicationUser, ApplicationUserDto>().ReverseMap();
             // Add other mappings here
         }
     }

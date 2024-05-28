@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TruSec.BLL.DTOs;
@@ -21,19 +22,21 @@ namespace TruSec.BLL.Services
 
         public async Task<TruckDto> GetAsync(int id)
         {
-            var Truck = await _unitOfWork.Trucks.GetByIdAsync(id);
-            return _mapper.Map<TruckDto>(Truck);
+            var truck = await _unitOfWork.Trucks.FindByConditionAsync(p => p.Id == id, false);
+            var result = truck.Include(p => p.Company).Include(p => p.DataLogs).Include(p => p.Secrets).FirstOrDefault();
+            return _mapper.Map<TruckDto>(truck);
         }
 
         public async Task<IEnumerable<TruckDto>> GetAsync()
         {
-            var Trucks = await _unitOfWork.Trucks.GetAllAsync();
-            return _mapper.Map<IEnumerable<TruckDto>>(Trucks);
+            var trucks = await _unitOfWork.Trucks.GetAllAsync(false);
+            var result = trucks.Include(p => p.Company).Include(p => p.DataLogs).Include(p => p.Secrets).ToList();
+            return _mapper.Map<IEnumerable<TruckDto>>(result);
         }
 
         public async Task AddAsync(TruckDto truckDto)
         {
-            var truck = _mapper.Map<Truck>(truckDto);
+            Truck truck = new Truck { CompanyId = (int)truckDto.CompanyId, ImageSrc = truckDto.ImageSrc, ModelName = truckDto.ModelName, RegistrationNumber = truckDto.RegistrationNumber };
             await _unitOfWork.Trucks.AddAsync(truck);
             await _unitOfWork.CompleteAsync();
         }

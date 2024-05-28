@@ -13,6 +13,5 @@ namespace TruSec.BLL.DTOs
     {
         public int? Id { get; set; }
         public string? Name { get; set; }
-        public List<TruckDto>? Trucks { get; set; }
     }
 }
