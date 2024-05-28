@@ -8,8 +8,8 @@ namespace TruSec.DAL.Repositories
     public interface IRepository<T> where T : class
     {
         Task<T> GetByIdAsync(int id);
-        Task<IEnumerable<T>> GetAllAsync();
-        Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate);
+        Task<IQueryable<T>> GetAllAsync(bool trackChanges);
+        Task<IQueryable<T>> FindByConditionAsync(Expression<Func<T, bool>> expression, bool trackChanges);
 
         Task AddAsync(T entity);
         Task AddRangeAsync(IEnumerable<T> entities);

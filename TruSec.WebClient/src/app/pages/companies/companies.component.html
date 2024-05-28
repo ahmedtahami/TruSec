@@ -1,0 +1,94 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="card px-6 py-6">
+      <p-toast></p-toast>
+
+      <h3>Manage Companies</h3>
+      <p-table #dt [value]="companies" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name']" [paginator]="true"
+               [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+               currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowHover]="true" dataKey="id">
+        <ng-template pTemplate="caption">
+          <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+            <div class="my-2">
+              <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+            </div>
+            <span class="block mt-2 md:mt-0 p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..." class="w-full sm:w-auto" />
+            </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="name">Company Name <p-sortIcon field="name"></p-sortIcon></th>
+            <th>Actions</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-company>
+          <tr>
+            <td style="min-width: 10rem;">
+              <span class="p-column-title">Company Name</span>
+              {{company.name}}
+            </td>
+            <td>
+              <div class="flex">
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="openEdit(company)"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="openDelete(company)"></button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <!--Dialog For New-->
+    <p-dialog [(visible)]="companyDialogForNew" [style]="{width: '70%'}" header="Create Company" [modal]="true" class="p-fluid">
+      <ng-template pTemplate="content">
+        <form #companyNewForm="ngForm" (submit)="create(companyNewForm)">
+          <div class="field">
+            <label for="name">Company Name</label>
+            <input type="text" pInputText id="name" name="name" #name="ngModel" [(ngModel)]="company.name" required [ngClass]="{'ng-invalid ng-dirty' : companyNewForm.submitted && name.invalid}" autofocus />
+            <small class="text-danger" *ngIf="companyNewForm.submitted && name.errors?.['required']">Company Name is required.</small>
+          </div>
+          <div class="d-flex justify-content-end">
+            <div class="btn-group">
+              <button pButton pRipple type="button" label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialogForNew()"></button>
+              <button pButton pRipple type="submit" label="Save" icon="pi pi-check" class="p-button-text"></button>
+            </div>
+          </div>
+        </form>
+      </ng-template>
+    </p-dialog>
+
+    <!--Dialog For Edit-->
+    <p-dialog [(visible)]="companyDialogForEdit" [style]="{width: '70%'}" header="Edit Company" [modal]="true" class="p-fluid">
+      <ng-template pTemplate="content">
+        <form #companyEditForm="ngForm" (submit)="update(companyEditForm)">
+          <div class="field">
+            <label for="name">Company Name</label>
+            <input type="text" pInputText id="name" name="name" #name="ngModel" [(ngModel)]="company.name" required [ngClass]="{'ng-invalid ng-dirty' : companyEditForm.submitted && name.invalid}" autofocus />
+            <small class="text-danger" *ngIf="companyEditForm.submitted && name.errors?.['required']">Company Name is required.</small>
+          </div>
+          <div class="d-flex justify-content-end">
+            <div class="btn-group">
+              <button pButton pRipple type="button" label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialogForEdit()"></button>
+              <button pButton pRipple type="submit" label="Save" icon="pi pi-check" class="p-button-text"></button>
+            </div>
+          </div>
+        </form>
+      </ng-template>
+    </p-dialog>
+
+    <!--Dialog For Delete-->
+    <p-dialog [(visible)]="deleteCompanyDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+      <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <span *ngIf="company">Are you sure you want to delete <b>{{company.name}}</b>?</span>
+      </div>
+      <ng-template pTemplate="footer">
+        <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteCompanyDialog = false"></button>
+        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete()"></button>
+      </ng-template>
+    </p-dialog>
+  </div>
+</div>

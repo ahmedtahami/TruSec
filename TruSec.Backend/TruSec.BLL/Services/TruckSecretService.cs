@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TruSec.BLL.DTOs;
@@ -21,14 +22,16 @@ namespace TruSec.BLL.Services
 
         public async Task<TruckSecretDto> GetAsync(int id)
         {
-            var truckSecret = await _unitOfWork.TruckSecrets.GetByIdAsync(id);
-            return _mapper.Map<TruckSecretDto>(truckSecret);
+            var truckSecret = await _unitOfWork.TruckSecrets.FindByConditionAsync(p => p.Id == id, false);
+            var result = truckSecret.Include(p => p.Truck).FirstOrDefault();
+            return _mapper.Map<TruckSecretDto>(result);
         }
 
         public async Task<IEnumerable<TruckSecretDto>> GetAsync()
         {
-            var TruckSecrets = await _unitOfWork.TruckSecrets.GetAllAsync();
-            return _mapper.Map<IEnumerable<TruckSecretDto>>(TruckSecrets);
+            var truckSecrets = await _unitOfWork.TruckSecrets.GetAllAsync(false);
+            var result = truckSecrets.Include(p => p.Truck).ToList();
+            return _mapper.Map<IEnumerable<TruckSecretDto>>(result);
         }
 
         public async Task AddAsync(TruckSecretDto truckSecretDto)

@@ -32,15 +32,11 @@ namespace TruSec.DAL.Repositories
                 return await _entities.FindAsync(id);
             }
 
-            public async Task<IEnumerable<T>> GetAllAsync()
-            {
-                return await _entities.ToListAsync();
-            }
+            public async Task<IQueryable<T>> GetAllAsync(bool trackChanges) =>
+            !trackChanges ? await Task.Run(() => _context.Set<T>().AsNoTracking()) : await Task.Run(() => _context.Set<T>());
 
-            public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
-            {
-                return await _entities.Where(predicate).ToListAsync();
-            }
+            public async Task<IQueryable<T>> FindByConditionAsync(Expression<Func<T, bool>> expression, bool trackChanges) =>
+                !trackChanges ? await Task.Run(() => _context.Set<T>().Where(expression).AsNoTracking()) : await Task.Run(() => _context.Set<T>().Where(expression));
 
             public async Task AddAsync(T entity)
             {

@@ -28,6 +28,11 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { TabViewModule } from 'primeng/tabview';
 import { ImageModule } from 'primeng/image';
 import { ColorPickerModule } from 'primeng/colorpicker';
+import { CompaniesComponent } from './companies/companies.component';
+import { TrucksComponent } from './trucks/trucks.component';
+import { TruckSecretsComponent } from './truck-secrets/truck-secrets.component';
+import { TruckDataLogsComponent } from './truck-data-logs/truck-data-logs.component';
+import { UserCompaniesComponent } from './user-companies/user-companies.component';
 
 const routes: Routes = [
   {
@@ -38,6 +43,22 @@ const routes: Routes = [
         path: 'dashboard',
         component: MainComponent,
       },
+      {
+        path: 'companies',
+        component: CompaniesComponent,
+      },
+      {
+        path: 'trucks',
+        component: TrucksComponent,
+      },
+      {
+        path: 'secrets',
+        component: TruckSecretsComponent,
+      },
+      {
+        path: 'datalogs',
+        component: TruckDataLogsComponent,
+      },
     ],
   }
 ];
@@ -45,7 +66,12 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    MainComponent
+    MainComponent,
+    CompaniesComponent,
+    TrucksComponent,
+    TruckSecretsComponent,
+    TruckDataLogsComponent,
+    UserCompaniesComponent
   ],
   imports: [
     BrowserModule,

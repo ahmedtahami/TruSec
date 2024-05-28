@@ -1,0 +1,128 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="card px-6 py-6">
+      <p-toast></p-toast>
+
+      <h3>Manage Trucks</h3>
+      <p-table #dt [value]="trucks" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['modelName', 'registrationNumber', 'companyName']" [paginator]="true"
+               [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+               currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowHover]="true" dataKey="id">
+        <ng-template pTemplate="caption">
+          <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+            <div class="my-2">
+              <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+            </div>
+            <span class="block mt-2 md:mt-0 p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..." class="w-full sm:w-auto" />
+            </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="modelName">Model Name <p-sortIcon field="modelName"></p-sortIcon></th>
+            <th pSortableColumn="registrationNumber">Registration Number <p-sortIcon field="registrationNumber"></p-sortIcon></th>
+            <th pSortableColumn="companyName">Company Name <p-sortIcon field="companyName"></p-sortIcon></th>
+            <th>Actions</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-truck>
+          <tr>
+            <td style="min-width: 10rem;">
+              <span class="p-column-title">Model Name</span>
+              {{truck.modelName}}
+            </td>
+            <td style="min-width: 10rem;">
+              <span class="p-column-title">Registration Number</span>
+              {{truck.registrationNumber}}
+            </td>
+            <td style="min-width: 10rem;">
+              <span class="p-column-title">Company Name</span>
+              {{truck.company.name}}
+            </td>
+            <td>
+              <div class="flex">
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="openEdit(truck)"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="openDelete(truck)"></button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <!--Dialog For New-->
+    <p-dialog [(visible)]="truckDialogForNew" [style]="{width: '70%'}" header="Create Truck" [modal]="true" class="p-fluid">
+      <ng-template pTemplate="content">
+        <form #truckNewForm="ngForm" (submit)="create(truckNewForm)">
+          <div class="field">
+            <label for="modelName">Model Name</label>
+            <input type="text" pInputText id="modelName" name="modelName" #modelName="ngModel" [(ngModel)]="truck.modelName" required [ngClass]="{'ng-invalid ng-dirty' : truckNewForm.submitted && modelName.invalid}" autofocus />
+            <small class="text-danger" *ngIf="truckNewForm.submitted && modelName.errors?.['required']">Model Name is required.</small>
+          </div>
+          <div class="field">
+            <label for="registrationNumber">Registration Number</label>
+            <input type="text" pInputText id="registrationNumber" name="registrationNumber" #registrationNumber="ngModel" [(ngModel)]="truck.registrationNumber" required [ngClass]="{'ng-invalid ng-dirty' : truckNewForm.submitted && registrationNumber.invalid}" />
+            <small class="text-danger" *ngIf="truckNewForm.submitted && registrationNumber.errors?.['required']">Registration Number is required.</small>
+          </div>
+          <div class="field">
+            <label for="companyId">Company</label>
+            <p-dropdown [options]="companies" id="companyId" name="companyId" #companyId="ngModel" [(ngModel)]="truck.companyId" [required]="true" optionValue="id" optionLabel="name" [filter]="true"
+                        placeholder="Please Select Company" [ngClass]="{'ng-invalid ng-dirty' : truckNewForm.submitted && companyId.invalid}">
+            </p-dropdown>
+            <small class="text-danger" *ngIf="truckNewForm.submitted && companyId.errors?.['required']">Company is required.</small>
+          </div>
+          <div class="d-flex justify-content-end">
+            <div class="btn-group">
+              <button pButton pRipple type="button" label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialogForNew()"></button>
+              <button pButton pRipple type="submit" label="Save" icon="pi pi-check" class="p-button-text"></button>
+            </div>
+          </div>
+        </form>
+      </ng-template>
+    </p-dialog>
+
+    <!--Dialog For Edit-->
+    <p-dialog [(visible)]="truckDialogForEdit" [style]="{width: '70%'}" header="Edit Truck" [modal]="true" class="p-fluid">
+      <ng-template pTemplate="content">
+        <form #truckEditForm="ngForm" (submit)="update(truckEditForm)">
+          <div class="field">
+            <label for="modelName">Model Name</label>
+            <input type="text" pInputText id="modelName" name="modelName" #modelName="ngModel" [(ngModel)]="truck.modelName" required [ngClass]="{'ng-invalid ng-dirty' : truckEditForm.submitted && modelName.invalid}" autofocus />
+            <small class="text-danger" *ngIf="truckEditForm.submitted && modelName.errors?.['required']">Model Name is required.</small>
+          </div>
+          <div class="field">
+            <label for="registrationNumber">Registration Number</label>
+            <input type="text" pInputText id="registrationNumber" name="registrationNumber" #registrationNumber="ngModel" [(ngModel)]="truck.registrationNumber" required [ngClass]="{'ng-invalid ng-dirty' : truckEditForm.submitted && registrationNumber.invalid}" />
+            <small class="text-danger" *ngIf="truckEditForm.submitted && registrationNumber.errors?.['required']">Registration Number is required.</small>
+          </div>
+          <div class="field">
+            <label for="companyId">Company</label>
+            <p-dropdown [options]="companies" id="companyId" name="companyId" #companyId="ngModel" [(ngModel)]="truck.companyId" [required]="true" optionValue="id" optionLabel="name" [filter]="true"
+                        placeholder="Please Select Company" [ngClass]="{'ng-invalid ng-dirty' : truckEditForm.submitted && companyId.invalid}">
+            </p-dropdown>
+            <small class="text-danger" *ngIf="truckEditForm.submitted && companyId.errors?.['required']">Company is required.</small>
+          </div>
+          <div class="d-flex justify-content-end">
+            <div class="btn-group">
+              <button pButton pRipple type="button" label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialogForEdit()"></button>
+              <button pButton pRipple type="submit" label="Save" icon="pi pi-check" class="p-button-text"></button>
+            </div>
+          </div>
+        </form>
+      </ng-template>
+    </p-dialog>
+
+    <!--Dialog For Delete-->
+    <p-dialog [(visible)]="deleteTruckDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+      <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <span *ngIf="truck">Are you sure you want to delete <b>{{truck.modelName}}</b>?</span>
+      </div>
+      <ng-template pTemplate="footer">
+        <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteTruckDialog = false"></button>
+        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete()"></button>
+      </ng-template>
+    </p-dialog>
+  </div>
+</div>
