@@ -25,6 +25,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/leaflet/dist/leaflet.css",
               "./node_modules/ngx-spinner/animations/ball-8bits.css",
               "node_modules/bootstrap/dist/css/bootstrap.css",
               "./node_modules/primeflex/primeflex.scss",

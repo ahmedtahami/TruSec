@@ -18,7 +18,7 @@ namespace TruSec.Backend.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] ExpressionData data)
         {
-            await _hubContext.Clients.All.SendAsync("ReceiveExpression", data.Expression);
+            await _hubContext.Clients.All.SendAsync("ReceiveExpression", data);
             return Ok();
         }
     }
@@ -26,5 +26,7 @@ namespace TruSec.Backend.Controllers
     public class ExpressionData
     {
         public string Expression { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }
