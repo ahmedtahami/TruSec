@@ -2,7 +2,7 @@
 
 namespace TruSec.DAL.Entities
 {
-    public class TruckSecrets
+    public class TruckSecret
     {
         public int Id { get; set; }
         public string DeviceName { get; set; }
