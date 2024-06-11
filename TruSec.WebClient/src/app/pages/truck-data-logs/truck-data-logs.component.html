@@ -1,1 +1,45 @@
-<p>truck-data-logs works!</p>
+<p-table #dt [value]="list" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['timeStamp','driverExpression','latitude', 'longitude']" [paginator]="true"
+         [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowHover]="true" dataKey="id">
+  <ng-template pTemplate="caption">
+    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+      <span class="block mt-2 md:mt-0 p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..." class="w-full sm:w-auto" />
+      </span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="timeStamp">TimeStamp <p-sortIcon field="timeStamp"></p-sortIcon></th>
+      <th pSortableColumn="driverExpression">Driver Expression <p-sortIcon field="driverExpression"></p-sortIcon></th>
+      <th pSortableColumn="latitude">Latitude <p-sortIcon field="latitude"></p-sortIcon></th>
+      <th pSortableColumn="longitude">Longitude <p-sortIcon field="longitude"></p-sortIcon></th>
+      <th pSortableColumn="speedKPH">Speed (KPH) <p-sortIcon field="speedKPH"></p-sortIcon></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-row>
+    <tr>
+      <td style="min-width: 10rem;">
+        <span class="p-column-title">TimeStamp</span>
+        {{row.timeStamp}}
+      </td>
+      <td style="min-width: 10rem;">
+        <span class="p-column-title">Driver Expression</span>
+        {{row.driverExpression}}
+      </td>
+      <td style="min-width: 10rem;">
+        <span class="p-column-title">Latitude</span>
+        {{row.latitude}}
+      </td>
+      <td style="min-width: 10rem;">
+        <span class="p-column-title">Longitude</span>
+        {{row.longitude}}
+      </td>
+      <td style="min-width: 10rem;">
+        <span class="p-column-title">Speed (KPH)</span>
+        {{row.speedKPH ?? 0}}
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

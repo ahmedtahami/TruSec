@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using TruSec.DAL.DbContexts;
 using TruSec.DAL.Entities;
-using TruSec.DAL.Repositories.TruSec.DAL.Repositories;
+using TruSec.DAL.Repositories;
 
 namespace TruSec.DAL.Repositories
 {

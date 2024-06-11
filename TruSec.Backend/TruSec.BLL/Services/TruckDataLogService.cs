@@ -33,6 +33,12 @@ namespace TruSec.BLL.Services
             var result = truckDataLogs.Include(p => p.Truck).ToList();
             return _mapper.Map<IEnumerable<TruckDataLogDto>>(result);
         }
+        public async Task<IEnumerable<TruckDataLogDto>> GetByTruckAsync(int truckId)
+        {
+            var truckDataLogs = await _unitOfWork.TruckDataLogs.GetAllAsync(false);
+            var result = truckDataLogs.Include(p => p.Truck).Where(p => p.TruckId == truckId).ToList();
+            return _mapper.Map<IEnumerable<TruckDataLogDto>>(result);
+        }
 
         public async Task AddAsync(TruckDataLogDto truckDataLogDto)
         {

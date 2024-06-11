@@ -8,7 +8,6 @@ using TruSec.BLL.Services;
 using TruSec.DAL.DbContexts;
 using TruSec.DAL.Entities;
 using TruSec.DAL.Repositories;
-using TruSec.DAL.Repositories.TruSec.DAL.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -42,6 +42,8 @@
             </td>
             <td>
               <div class="flex">
+                <button pButton pRipple icon="pi pi-truck" class="p-button-rounded p-button-info" (click)="openLiveFeed(truck)"></button>&nbsp;
+                <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-danger" (click)="openDataLogsDialog(truck.id)"></button>&nbsp;
                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="openEdit(truck)"></button>
                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="openDelete(truck)"></button>
               </div>
@@ -122,6 +124,22 @@
       <ng-template pTemplate="footer">
         <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteTruckDialog = false"></button>
         <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete()"></button>
+      </ng-template>
+    </p-dialog>
+    <!--Dialog For Live Feed-->
+    <p-dialog [(visible)]="liveFeedTruckDialog" header="Truck Live Feed" [modal]="true" [style]="{width:'90%', height:'100%'}" (onShow)="onLiveFeedDialogShow()">
+      <div class="flex align-items-center justify-content-center">
+        <app-truck-live-feed #liveFeed [truck]="truck"></app-truck-live-feed>
+      </div>
+      <ng-template pTemplate="footer">
+        <button pButton pRipple icon="pi pi-times" class="p-button-text" label="Close" (click)="hideDialogForLiveFeed()"></button>
+      </ng-template>
+    </p-dialog>
+    <!--Dialog For Data Logs-->
+    <p-dialog [(visible)]="truckDataLogsDialog" header="Truck Data Logs" [modal]="true" [style]="{width:'90%', height:'100%'}">
+      <app-truck-data-logs #dataLogs [truckId]="truck.id ?? 0"></app-truck-data-logs>
+      <ng-template pTemplate="footer">
+        <button pButton pRipple icon="pi pi-times" class="p-button-text" label="Close" (click)="hideDialogForDataLogs()"></button>
       </ng-template>
     </p-dialog>
   </div>

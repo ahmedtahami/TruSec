@@ -33,6 +33,7 @@ import { TrucksComponent } from './trucks/trucks.component';
 import { TruckSecretsComponent } from './truck-secrets/truck-secrets.component';
 import { TruckDataLogsComponent } from './truck-data-logs/truck-data-logs.component';
 import { UserCompaniesComponent } from './user-companies/user-companies.component';
+import { TruckLiveFeedComponent } from './truck-live-feed/truck-live-feed.component';
 
 const routes: Routes = [
   {
@@ -71,7 +72,8 @@ const routes: Routes = [
     TrucksComponent,
     TruckSecretsComponent,
     TruckDataLogsComponent,
-    UserCompaniesComponent
+    UserCompaniesComponent,
+    TruckLiveFeedComponent
   ],
   imports: [
     BrowserModule,
