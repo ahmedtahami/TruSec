@@ -6,30 +6,34 @@ import { TruckDataLog } from '../../models/TruckDataLog';
 
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class TruckDataLogService {
 
-    private readonly ENDPOINT_NAME = "truckdatalogs";
-    constructor(private http: HttpClient) { }
+  private readonly ENDPOINT_NAME = "truckdatalogs";
+  constructor(private http: HttpClient) { }
 
-    getTruckDataLogById(id: number): Observable<TruckDataLog> {
-        return this.http.get<TruckDataLog>(`${environment.apiBase}${this.ENDPOINT_NAME}/${id}`);
-    }
+  getTruckDataLogById(id: number): Observable<TruckDataLog> {
+    return this.http.get<TruckDataLog>(`${environment.apiBase}${this.ENDPOINT_NAME}/${id}`);
+  }
 
-    getAllTruckDataLogs(): Observable<TruckDataLog[]> {
-        return this.http.get<TruckDataLog[]>(`${environment.apiBase}${this.ENDPOINT_NAME}`);
-    }
+  getTruckDataLogByTruck(truckId: number): Observable<TruckDataLog[]> {
+    return this.http.get<TruckDataLog[]>(`${environment.apiBase}${this.ENDPOINT_NAME}/GetByTruck/${truckId}`);
+  }
 
-    addTruckDataLog(truckDataLog: TruckDataLog): Observable<TruckDataLog> {
-        return this.http.post<TruckDataLog>(`${environment.apiBase}${this.ENDPOINT_NAME}`, truckDataLog);
-    }
+  getAllTruckDataLogs(): Observable<TruckDataLog[]> {
+    return this.http.get<TruckDataLog[]>(`${environment.apiBase}${this.ENDPOINT_NAME}`);
+  }
 
-    updateTruckDataLog(id: number, truckDataLog: TruckDataLog): Observable<void> {
-        return this.http.put<void>(`${environment.apiBase}${this.ENDPOINT_NAME}/${id}`, truckDataLog);
-    }
+  addTruckDataLog(truckDataLog: TruckDataLog): Observable<TruckDataLog> {
+    return this.http.post<TruckDataLog>(`${environment.apiBase}${this.ENDPOINT_NAME}`, truckDataLog);
+  }
 
-    deleteTruckDataLog(id: number): Observable<void> {
-        return this.http.delete<void>(`${environment.apiBase}${this.ENDPOINT_NAME}/${id}`);
-    }
+  updateTruckDataLog(id: number, truckDataLog: TruckDataLog): Observable<void> {
+    return this.http.put<void>(`${environment.apiBase}${this.ENDPOINT_NAME}/${id}`, truckDataLog);
+  }
+
+  deleteTruckDataLog(id: number): Observable<void> {
+    return this.http.delete<void>(`${environment.apiBase}${this.ENDPOINT_NAME}/${id}`);
+  }
 }

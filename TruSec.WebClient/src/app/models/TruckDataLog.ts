@@ -1,4 +1,4 @@
-﻿import { Truck } from "./Truck";
+import { Truck } from "./Truck";
 
 
 export class TruckDataLog {
@@ -8,6 +8,5 @@ export class TruckDataLog {
     latitude?: number;
     longitude?: number;
     truckId?: number;
-    truck?: Truck;
     speedKPH?: number;
 }
