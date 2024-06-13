@@ -2,7 +2,6 @@
   <div class="col-12">
     <div class="card px-6 py-6">
       <p-toast></p-toast>
-
       <h3>Manage Trucks</h3>
       <p-table #dt [value]="trucks" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['modelName', 'registrationNumber', 'companyName']" [paginator]="true"
                [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
@@ -42,9 +41,10 @@
             </td>
             <td>
               <div class="flex">
-                <button pButton pRipple icon="pi pi-truck" class="p-button-rounded p-button-info" (click)="openLiveFeed(truck)"></button>&nbsp;
-                <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-danger" (click)="openDataLogsDialog(truck.id)"></button>&nbsp;
-                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="openEdit(truck)"></button>
+                <button pButton pRipple icon="pi pi-truck" class="p-button-rounded p-button-info mr-2" (click)="openLiveFeed(truck)"></button>
+                <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-primary mr-2" (click)="openDataLogsDialog(truck.id)"></button>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-danger mr-2" (click)="openEdit(truck)"></button>
+                <button pButton pRipple icon="pi pi-lock" class="p-button-rounded p-button-success mr-2" (click)="openTruckSecretsDialog(truck)"></button>
                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="openDelete(truck)"></button>
               </div>
             </td>
@@ -140,6 +140,13 @@
       <app-truck-data-logs #dataLogs [truckId]="truck.id ?? 0"></app-truck-data-logs>
       <ng-template pTemplate="footer">
         <button pButton pRipple icon="pi pi-times" class="p-button-text" label="Close" (click)="hideDialogForDataLogs()"></button>
+      </ng-template>
+    </p-dialog>
+    <!--Dialog For Secrets-->
+    <p-dialog [(visible)]="truckSecretsDialog" header="Manage Truck Secrets" [modal]="true" [style]="{width:'90%', height:'100%'}">
+      <app-truck-secrets #secrets [truck]="truck"></app-truck-secrets>
+      <ng-template pTemplate="footer">
+        <button pButton pRipple icon="pi pi-times" class="p-button-text" label="Close" (click)="hideDialogForTruckSecrets()"></button>
       </ng-template>
     </p-dialog>
   </div>

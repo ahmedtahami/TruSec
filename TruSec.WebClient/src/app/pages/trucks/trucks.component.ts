@@ -6,8 +6,9 @@ import { CompaniesService } from '../companies/companies.service';
 import { NgForm } from '@angular/forms';
 import { Table } from 'primeng/table';
 import { Company } from '../../models/Company';
-import { TruckLiveFeedComponent } from '../truck-live-feed/truck-live-feed.component';
 import { TruckDataLogsComponent } from '../truck-data-logs/truck-data-logs.component';
+import { TruckLiveFeedComponent } from '../truck-live-feed/truck-live-feed.component';
+import { TruckSecretsComponent } from '../truck-secrets/truck-secrets.component';
 
 @Component({
   selector: 'app-trucks',
@@ -26,10 +27,12 @@ export class TrucksComponent {
   deleteTruckDialog: boolean = false;
   liveFeedTruckDialog: boolean = false;
   truckDataLogsDialog: boolean = false;
+  truckSecretsDialog: boolean = false;
   rowsPerPageOptions = [5, 10, 20];
   importDto: { file?: File } = {};
   @ViewChild('liveFeed') liveFeed!: TruckLiveFeedComponent;
   @ViewChild('dataLogs') dataLogs!: TruckDataLogsComponent;
+  @ViewChild('secrets') secrets!: TruckSecretsComponent;
   constructor(private messageService: MessageService, private trucksService: TrucksService, private companiesService: CompaniesService) { }
 
   ngOnInit(): void {
@@ -137,7 +140,14 @@ export class TrucksComponent {
     this.truckDataLogsDialog = false;
     this.truck = {};
   }
-
+  openTruckSecretsDialog(truck: Truck) {
+    this.truck = { ...truck };
+    this.truckSecretsDialog = true;
+  }
+  hideDialogForTruckSecrets() {
+    this.truckSecretsDialog = false;
+    this.truck = {};
+  }
   onGlobalFilter(table: Table, event: Event) {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }

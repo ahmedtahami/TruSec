@@ -33,6 +33,12 @@ namespace TruSec.Backend.Controllers
             var result = await _service.GetAsync();
             return Ok(result);
         }
+        [HttpGet("GetByTruck/{truckId}")]
+        public async Task<IActionResult> GetByTruck(int truckId)
+        {
+            var result = await _service.GetByTruckAsync(truckId);
+            return Ok(result);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] TruckSecretDto dto)
