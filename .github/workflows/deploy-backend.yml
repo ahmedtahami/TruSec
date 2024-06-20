@@ -23,7 +23,7 @@ jobs:
 
     - name: Build and push Docker image
       run: |
-        docker build -t <your-registry-name>.azurecr.io/trusec-backend:latest -f TruSec.Backend/Dockerfile TruSec.Backend
+        docker build -t trusec.azurecr.io/trusec-backend:latest -f TruSec.Backend/Dockerfile TruSec.Backend
         docker push trusec.azurecr.io/trusec-backend:latest
 
     - name: 'Deploy to Azure Web App'
