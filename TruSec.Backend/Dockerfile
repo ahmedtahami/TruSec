@@ -26,5 +26,4 @@ RUN dotnet publish "TruSec.Backend.csproj" -c Release -o /app/publish /p:UseAppH
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
 WORKDIR /app
 COPY --from=publish /app/publish .
-EXPOSE 80
 ENTRYPOINT ["dotnet", "TruSec.Backend.dll"]
