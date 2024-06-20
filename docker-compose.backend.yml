@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  trusec-backend:
+    image: trusec-backend
+    build:
+      context: .
+      dockerfile: TruSec.Backend/Dockerfile
+    ports:
+      - "8080:80"
+      - "8443:443"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
