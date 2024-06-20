@@ -6,17 +6,17 @@ WORKDIR /src
 RUN ls -R /src
 
 # Copy the project files and restore any dependencies
-COPY ["TruSec.Backend/TruSec.Backend/TruSec.Backend.csproj", "TruSec.Backend/"]
-COPY ["TruSec.Backend/TruSec.BLL/TruSec.BLL.csproj", "TruSec.BLL/"]
-COPY ["TruSec.Backend/TruSec.DAL/TruSec.DAL.csproj", "TruSec.DAL/"]
-RUN dotnet restore "TruSec.Backend/TruSec.Backend/TruSec.Backend.csproj"
+COPY ["TruSec.Backend/TruSec.Backend.csproj", "TruSec.Backend/"]
+COPY ["TruSec.BLL/TruSec.BLL.csproj", "TruSec.BLL/"]
+COPY ["TruSec.DAL/TruSec.DAL.csproj", "TruSec.DAL/"]
+RUN dotnet restore "TruSec.Backend/TruSec.Backend.csproj"
 
 # List directories for debugging
 RUN ls -R /src
 
 # Copy the remaining files and build the application
 COPY . .
-WORKDIR "/src/TruSec.Backend/TruSec.Backend"
+WORKDIR "/src/TruSec.Backend"
 RUN dotnet build "TruSec.Backend.csproj" -c Release -o /app/build
 
 FROM build AS publish
