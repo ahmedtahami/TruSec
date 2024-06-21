@@ -23,9 +23,8 @@ jobs:
 
     - name: Build and push Docker image
       run: |
-        docker buildx create --use
-        docker buildx inspect --bootstrap
-        docker buildx build --platform linux/amd64 -t trusecapi.azurecr.io/trusec-backend:latest -f TruSec.Backend/Dockerfile TruSec.Backend --push
+        docker build -t trusecapi.azurecr.io/trusec-backend:latest -f TruSec.Backend/Dockerfile TruSec.Backend
+        docker push trusecapi.azurecr.io/trusec-backend:latest
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
