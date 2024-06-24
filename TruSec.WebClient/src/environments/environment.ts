@@ -1,8 +1,8 @@
 export const environment = {
   production: true,
   appName: 'TruSec',
-  apiBase: 'https://qa.elite-interactive.com/api/',
-  defaultUrl: 'https://qa.elite-interactive.com',
+  apiBase: 'https://trusec-dev-api.azurewebsites.net/api/',
+  defaultUrl: 'https://trusec-dev-api.azurewebsites.net/',
   versionControl: {
     v: '1',
     env: 'QA'
