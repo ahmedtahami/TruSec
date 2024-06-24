@@ -17,7 +17,8 @@ var migrationAssembly = typeof(ApplicationDbContext).Assembly.FullName;
 var connectionString = builder.Configuration.GetValue<string>("DB_CON_STR") 
     ?? builder.Configuration.GetConnectionString("DefaultConnection");
 
-Console.WriteLine("Connection String: " + connectionString);
+var logger = LoggerFactory.Create(config => config.AddConsole()).CreateLogger<Program>();
+logger.LogInformation("Connection String: " + connectionString);
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString,
