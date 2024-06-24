@@ -14,9 +14,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 var migrationAssembly = typeof(ApplicationDbContext).Assembly.FullName;
+var connectionString = builder.Configuration.GetValue<string>("DB_CON_STR") 
+    ?? builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+                options.UseSqlServer(connectionString,
                     sqlOptions => sqlOptions.MigrationsAssembly(migrationAssembly)));
 
 
@@ -51,6 +53,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+// Run Migrations
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    db.Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
