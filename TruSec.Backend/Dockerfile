@@ -20,8 +20,5 @@ COPY --from=build /app/publish .
 # Expose port 80
 EXPOSE 80
 
-# Set environment variable for connection string
-ENV ConnectionStrings__DefaultConnection="Server=host.docker.internal,1433;Database=TruSecDb;User Id=sa;Password=TRU_SEC_DEV_DB!@#123;"
-
 # Start the application
 ENTRYPOINT ["dotnet", "TruSec.Backend.dll"]
