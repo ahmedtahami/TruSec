@@ -15,10 +15,11 @@ RUN dotnet build "TruSec.Backend.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "TruSec.Backend.csproj" -c Release -o /app/publish /p:UseAppHost=false
-EXPOSE 80
 
 # Use the official .NET runtime image to run the application
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
 WORKDIR /app
 COPY --from=publish /app/publish .
+EXPOSE 80
+ENV ASPNETCORE_URLS=http://+:80
 ENTRYPOINT ["dotnet", "TruSec.Backend.dll"]
