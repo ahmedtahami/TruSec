@@ -14,9 +14,6 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1.7.0
 
-    - name: List directory for debugging
-      run: ls -R
-
     - name: Log in to Azure Container Registry
       uses: azure/docker-login@v1
       with:
@@ -28,7 +25,7 @@ jobs:
       run: |
         docker buildx create --use
         docker buildx inspect --bootstrap
-        docker buildx build --platform linux/amd64 -t trusecdev.azurecr.io/trusec-backend:latest -f TruSec.Backend/Dockerfile TruSec.Backend --push
+        docker buildx build --platform linux/amd64 -t trusecapi.azurecr.io/trusec-backend:latest -f TruSec.Backend/Dockerfile TruSec.Backend --push
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
@@ -36,4 +33,4 @@ jobs:
         app-name: trusec-dev-api
         slot-name: production
         images: trusecdev.azurecr.io/trusec-backend:latest
-        publish-profile: ${{ secrets.AZURE_CREDENTIALS }}
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
