@@ -1,6 +1,6 @@
-# Use the official .NET 6 SDK image as the build environment
+# Use the official .NET 6 SDK image to build the application
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /app
+WORKDIR /src
 
 # Copy the project files and restore any dependencies
 COPY ["TruSec.Backend/TruSec.Backend.csproj", "TruSec.Backend/"]
@@ -8,17 +8,17 @@ COPY ["TruSec.BLL/TruSec.BLL.csproj", "TruSec.BLL/"]
 COPY ["TruSec.DAL/TruSec.DAL.csproj", "TruSec.DAL/"]
 RUN dotnet restore "TruSec.Backend/TruSec.Backend.csproj"
 
-# Copy the remaining files and publish the application
+# Copy the remaining files and build the application
 COPY . .
-RUN dotnet publish "TruSec.Backend/TruSec.Backend.csproj" -c Release -o /app/publish
+WORKDIR "/src/TruSec.Backend"
+RUN dotnet build "TruSec.Backend.csproj" -c Release -o /app/build
 
-# Use the official .NET 6 ASP.NET Core runtime image as the runtime environment
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS final
-WORKDIR /app
-COPY --from=build /app/publish .
-
-# Expose port 80
+FROM build AS publish
+RUN dotnet publish "TruSec.Backend.csproj" -c Release -o /app/publish /p:UseAppHost=false
 EXPOSE 80
 
-# Start the application
+# Use the official .NET runtime image to run the application
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
+WORKDIR /app
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "TruSec.Backend.dll"]
