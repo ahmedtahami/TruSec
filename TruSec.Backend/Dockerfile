@@ -1,9 +1,6 @@
-# Use the official .NET 6 SDK image to build the application
+# Use the official .NET 6 SDK image as the build environment
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /src
-
-# List directories for debugging
-RUN ls -R /src
+WORKDIR /app
 
 # Copy the project files and restore any dependencies
 COPY ["TruSec.Backend/TruSec.Backend.csproj", "TruSec.Backend/"]
@@ -11,19 +8,20 @@ COPY ["TruSec.BLL/TruSec.BLL.csproj", "TruSec.BLL/"]
 COPY ["TruSec.DAL/TruSec.DAL.csproj", "TruSec.DAL/"]
 RUN dotnet restore "TruSec.Backend/TruSec.Backend.csproj"
 
-# List directories for debugging
-RUN ls -R /src
-
-# Copy the remaining files and build the application
+# Copy the remaining files and publish the application
 COPY . .
-WORKDIR "/src/TruSec.Backend"
-RUN dotnet build "TruSec.Backend.csproj" -c Release -o /app/build
+RUN dotnet publish "TruSec.Backend/TruSec.Backend.csproj" -c Release -o /app/publish
 
-FROM build AS publish
-RUN dotnet publish "TruSec.Backend.csproj" -c Release -o /app/publish /p:UseAppHost=false
-
-# Use the official .NET runtime image to run the application
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
+# Use the official .NET 6 ASP.NET Core runtime image as the runtime environment
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build /app/publish .
+
+# Expose port 80
+EXPOSE 80
+
+# Set environment variable for connection string
+ENV ConnectionStrings__DefaultConnection="Server=host.docker.internal,1433;Database=TruSecDb;User Id=sa;Password=TRU_SEC_DEV_DB!@#123;"
+
+# Start the application
 ENTRYPOINT ["dotnet", "TruSec.Backend.dll"]
