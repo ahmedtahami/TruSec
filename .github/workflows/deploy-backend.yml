@@ -24,7 +24,7 @@ jobs:
     - name: Build and push Docker image
       run: |
         docker buildx create --use
-        docker buildx build --platform linux/amd64 -t trusecdev.azurecr.io/trusec-backend:latest -f Dockerfile --push .
+        docker buildx build --platform linux/amd64 -t trusecdev.azurecr.io/trusec-backend:latest -f TruSec.Backend/Dockerfile --push .
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
