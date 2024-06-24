@@ -14,16 +14,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 var migrationAssembly = typeof(ApplicationDbContext).Assembly.FullName;
-var connectionString = builder.Configuration.GetValue<string>("DB_CON_STR") 
+var connectionString = builder.Configuration.GetValue<string>("DB_CON_STR")
     ?? builder.Configuration.GetConnectionString("DefaultConnection");
-
-var logger = LoggerFactory.Create(config => config.AddConsole()).CreateLogger<Program>();
-logger.LogInformation("Connection String: " + connectionString);
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString,
                     sqlOptions => sqlOptions.MigrationsAssembly(migrationAssembly)));
-
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -65,11 +61,8 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseCors("CORSPolicy");
 
