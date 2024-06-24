@@ -12,24 +12,24 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1.7.0
+      uses: docker/setup-buildx-action@v1
 
     - name: Log in to Azure Container Registry
       uses: azure/docker-login@v1
       with:
-        login-server: trusecapi.azurecr.io
+        login-server: trusecdev.azurecr.io
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
 
     - name: Build and push Docker image
       run: |
-        docker build -t trusecapi.azurecr.io/trusec-backend:latest -f TruSec.Backend/Dockerfile TruSec.Backend
-        docker push trusecapi.azurecr.io/trusec-backend:latest
+        docker buildx create --use
+        docker buildx build --platform linux/amd64 -t trusecdev.azurecr.io/trusec-backend:latest -f Dockerfile --push .
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
-        app-name: trusec-api
+        app-name: trusec-dev-api
         slot-name: production
-        images: trusecapi.azurecr.io/trusec-backend:latest
+        images: trusecdev.azurecr.io/trusec-backend:latest
         publish-profile: ${{ secrets.AZURE_CREDENTIALS }}
