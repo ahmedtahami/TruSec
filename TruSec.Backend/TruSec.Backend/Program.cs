@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using TruSec.Backend.Hubs;
+using TruSec.Backend.Models;
 using TruSec.BLL.Configurations;
 using TruSec.BLL.Interfaces;
 using TruSec.BLL.Services;
@@ -21,6 +22,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString,
                     sqlOptions => sqlOptions.MigrationsAssembly(migrationAssembly)));
 
+builder.Services.Configure<AzureCommunicationServiceSettings>(builder.Configuration.GetSection("AzureCommunicationService"));
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<ICompanyService, CompanyService>();
@@ -28,6 +31,8 @@ builder.Services.AddScoped<ITruckService, TruckService>();
 builder.Services.AddScoped<ITruckDataLogService, TruckDataLogService>();
 builder.Services.AddScoped<ITruckSecretService, TruckSecretService>();
 builder.Services.AddScoped<IUserCompanyService, UserCompanyService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddSingleton<IEmailService, EmailService>();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
@@ -36,6 +41,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();
 builder.Services.AddSignalR();
 builder.Services.AddCors(options =>

@@ -1,0 +1,101 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="card px-6 py-6">
+      <p-toast></p-toast>
+
+      <h3>Manage Users</h3>
+      <p-table #dt [value]="users" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['firstName','lastName','email']" [paginator]="true"
+               [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+               currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowHover]="true" dataKey="id">
+        <ng-template pTemplate="caption">
+          <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+            <div class="my-2">
+              <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+            </div>
+            <span class="block mt-2 md:mt-0 p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..." class="w-full sm:w-auto" />
+            </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="firstName">First Name <p-sortIcon field="firstName"></p-sortIcon></th>
+            <th pSortableColumn="lastName">Last Name <p-sortIcon field="lastName"></p-sortIcon></th>
+            <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+            <th>Actions</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user>
+          <tr>
+            <td style="min-width: 10rem;">
+              <span class="p-column-title">First Name</span>
+              {{user.firstName}}
+            </td>
+            <td style="min-width: 10rem;">
+              <span class="p-column-title">Last Name</span>
+              {{user.lastName}}
+            </td>
+            <td style="min-width: 10rem;">
+              <span class="p-column-title">Email</span>
+              {{user.email}}
+            </td>
+            <td>
+              <div class="flex">
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="openDelete(user)"></button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <!--Dialog For New-->
+    <p-dialog [(visible)]="userDialogForNew" [style]="{width: '70%'}" header="Create User" [modal]="true" class="p-fluid">
+      <ng-template pTemplate="content">
+        <form #userNewForm="ngForm" (submit)="create(userNewForm)">
+          <div class="field">
+            <label for="firstName">First Name</label>
+            <input type="text" pInputText id="firstName" name="firstName" #firstName="ngModel" [(ngModel)]="user.firstName" required [ngClass]="{'ng-invalid ng-dirty' : userNewForm.submitted && name.invalid}" autofocus />
+            <small class="text-danger" *ngIf="userNewForm.submitted && firstName.errors?.['required']">First Name is required.</small>
+          </div>
+          <div class="field">
+            <label for="lastName">Last Name</label>
+            <input type="text" pInputText id="lastName" name="lastName" #lastName="ngModel" [(ngModel)]="user.lastName" required [ngClass]="{'ng-invalid ng-dirty' : userNewForm.submitted && name.invalid}" autofocus />
+            <small class="text-danger" *ngIf="userNewForm.submitted && lastName.errors?.['required']">Last Name is required.</small>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" pInputText id="email" name="email" #email="ngModel" [(ngModel)]="user.email" required [ngClass]="{'ng-invalid ng-dirty' : userNewForm.submitted && name.invalid}" autofocus />
+            <small class="text-danger" *ngIf="userNewForm.submitted && email.errors?.['required']">Email is required.</small>
+          </div>
+          <div class="field">
+            <label for="roleName">Role Name</label>
+            <p-dropdown [options]="roles" id="roleName" name="roleName" #roleName="ngModel" [(ngModel)]="user.roleName" [required]="true" optionValue="name" optionLabel="name" [filter]="true"
+                        placeholder="Please Select Role" [ngClass]="{'ng-invalid ng-dirty' : userNewForm.submitted && roleName.invalid}">
+            </p-dropdown>
+            <small class="text-danger" *ngIf="userNewForm.submitted && roleName.errors?.['required']">Role is required.</small>
+          </div>
+          <div class="d-flex justify-content-end">
+            <div class="btn-group">
+              <button pButton pRipple type="button" label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialogForNew()"></button>
+              <button pButton pRipple type="submit" label="Save" icon="pi pi-check" class="p-button-text"></button>
+            </div>
+          </div>
+        </form>
+      </ng-template>
+    </p-dialog>
+
+    <!--Dialog For Delete-->
+    <p-dialog [(visible)]="deleteUserDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+      <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <span *ngIf="user">Are you sure you want to delete <b>{{user.name}}</b>?</span>
+      </div>
+      <ng-template pTemplate="footer">
+        <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteUserDialog = false"></button>
+        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete()"></button>
+      </ng-template>
+    </p-dialog>
+  </div>
+</div>

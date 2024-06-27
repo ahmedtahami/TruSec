@@ -17,6 +17,7 @@ namespace TruSec.DAL.Repositories
             TruckDataLogs = new Repository<TruckDataLog>(_context);
             TruckSecrets = new Repository<TruckSecret>(_context);
             UserCompanies = new Repository<UserCompany>(_context);
+            ApplicationUsers = new Repository<ApplicationUser>(_context);
         }
 
         public IRepository<Company> Companies { get; private set; }
@@ -24,6 +25,7 @@ namespace TruSec.DAL.Repositories
         public IRepository<TruckDataLog> TruckDataLogs { get; private set; }
         public IRepository<TruckSecret> TruckSecrets { get; private set; }
         public IRepository<UserCompany> UserCompanies { get; private set; }
+        public IRepository<ApplicationUser> ApplicationUsers { get; private set; }
 
         public async Task<int> CompleteAsync()
         {

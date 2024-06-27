@@ -7,6 +7,8 @@ import { ErrorPageComponent } from './errors/error-page/error-page.component';
 import { PagesModule } from './pages/main.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes =
   [
@@ -37,6 +39,8 @@ const routes: Routes =
   declarations: [
     AppComponent,
     ErrorPageComponent,
+    ConfirmEmailComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,

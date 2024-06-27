@@ -11,6 +11,7 @@ namespace TruSec.DAL.Repositories
         IRepository<TruckDataLog> TruckDataLogs { get; }
         IRepository<TruckSecret> TruckSecrets { get; }
         IRepository<UserCompany> UserCompanies { get; }
+        IRepository<ApplicationUser> ApplicationUsers { get; }
         Task<int> CompleteAsync();
     }
 }
