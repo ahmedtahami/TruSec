@@ -34,6 +34,7 @@ import { TruckSecretsComponent } from './truck-secrets/truck-secrets.component';
 import { TruckDataLogsComponent } from './truck-data-logs/truck-data-logs.component';
 import { UserCompaniesComponent } from './user-companies/user-companies.component';
 import { TruckLiveFeedComponent } from './truck-live-feed/truck-live-feed.component';
+import { UsersComponent } from './users/users.component';
 
 const routes: Routes = [
   {
@@ -53,12 +54,8 @@ const routes: Routes = [
         component: TrucksComponent,
       },
       {
-        path: 'secrets',
-        component: TruckSecretsComponent,
-      },
-      {
-        path: 'datalogs',
-        component: TruckDataLogsComponent,
+        path: 'users',
+        component: UsersComponent,
       },
     ],
   }
@@ -73,7 +70,8 @@ const routes: Routes = [
     TruckSecretsComponent,
     TruckDataLogsComponent,
     UserCompaniesComponent,
-    TruckLiveFeedComponent
+    TruckLiveFeedComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,

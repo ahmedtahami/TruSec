@@ -6,5 +6,6 @@ namespace TruSec.BLL.Interfaces
     {
         Task<ResponseResult<ApplicationUserRegistrationDto>> CreateUserAsync(ApplicationUserRegistrationDto userDto);
         Task<ResponseResult<object>> SendConfirmationEmailAsync(string username);
+        Task<ResponseResult<List<ApplicationUserDto>>> GetAsync();
     }
 }

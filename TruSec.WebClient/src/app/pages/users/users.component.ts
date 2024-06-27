@@ -14,13 +14,13 @@ import { UserService } from './users.service';
 export class UsersComponent {
   users: ApplicationUser[] = [];
   user: ApplicationUserRegistrationDto = {};
-  userDialogForEdit: boolean = false;
   userDialogForNew: boolean = false;
-  userDialogForImport: boolean = false;
   deleteUserDialog: boolean = false;
   rowsPerPageOptions = [5, 10, 20];
   importDto: { file?: File } = {};
-
+  roles: { name: string }[] = [
+    { "name": "Test Role" },
+  ];
   constructor(private messageService: MessageService, private userService: UserService) { }
 
   ngOnInit(): void {
@@ -61,6 +61,9 @@ export class UsersComponent {
     this.deleteUserDialog = true;
   }
 
+  confirmDelete() {
+
+  }
 
   onGlobalFilter(table: Table, event: Event) {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');

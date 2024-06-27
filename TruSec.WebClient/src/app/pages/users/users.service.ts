@@ -15,10 +15,10 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<ApplicationUser[]> {
-    return this.http.get<ApplicationUser[]>(`${environment.apiBase}/${this.ENDPOINT_NAME}`);
+    return this.http.get<ApplicationUser[]>(`${environment.apiBase}${this.ENDPOINT_NAME}`);
   }
 
   addApplicationUser(ApplicationUser: ApplicationUserRegistrationDto): Observable<ApplicationUserRegistrationDto> {
-    return this.http.post<ApplicationUserRegistrationDto>(`${environment.apiBase}/${this.ENDPOINT_NAME}`, ApplicationUser);
+    return this.http.post<ApplicationUserRegistrationDto>(`${environment.apiBase}${this.ENDPOINT_NAME}`, ApplicationUser);
   }
 }

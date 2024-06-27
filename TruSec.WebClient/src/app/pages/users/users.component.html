@@ -56,17 +56,17 @@
         <form #userNewForm="ngForm" (submit)="create(userNewForm)">
           <div class="field">
             <label for="firstName">First Name</label>
-            <input type="text" pInputText id="firstName" name="firstName" #firstName="ngModel" [(ngModel)]="user.firstName" required [ngClass]="{'ng-invalid ng-dirty' : userNewForm.submitted && name.invalid}" autofocus />
+            <input type="text" pInputText id="firstName" name="firstName" #firstName="ngModel" [(ngModel)]="user.firstName" required [ngClass]="{'ng-invalid ng-dirty' : userNewForm.submitted && firstName.invalid}" autofocus />
             <small class="text-danger" *ngIf="userNewForm.submitted && firstName.errors?.['required']">First Name is required.</small>
           </div>
           <div class="field">
             <label for="lastName">Last Name</label>
-            <input type="text" pInputText id="lastName" name="lastName" #lastName="ngModel" [(ngModel)]="user.lastName" required [ngClass]="{'ng-invalid ng-dirty' : userNewForm.submitted && name.invalid}" autofocus />
+            <input type="text" pInputText id="lastName" name="lastName" #lastName="ngModel" [(ngModel)]="user.lastName" required [ngClass]="{'ng-invalid ng-dirty' : userNewForm.submitted && lastName.invalid}" autofocus />
             <small class="text-danger" *ngIf="userNewForm.submitted && lastName.errors?.['required']">Last Name is required.</small>
           </div>
           <div class="field">
             <label for="email">Email</label>
-            <input type="email" pInputText id="email" name="email" #email="ngModel" [(ngModel)]="user.email" required [ngClass]="{'ng-invalid ng-dirty' : userNewForm.submitted && name.invalid}" autofocus />
+            <input type="email" pInputText id="email" name="email" #email="ngModel" [(ngModel)]="user.email" required [ngClass]="{'ng-invalid ng-dirty' : userNewForm.submitted && email.invalid}" autofocus />
             <small class="text-danger" *ngIf="userNewForm.submitted && email.errors?.['required']">Email is required.</small>
           </div>
           <div class="field">
@@ -90,7 +90,7 @@
     <p-dialog [(visible)]="deleteUserDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
       <div class="flex align-items-center justify-content-center">
         <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-        <span *ngIf="user">Are you sure you want to delete <b>{{user.name}}</b>?</span>
+        <span *ngIf="user">Are you sure you want to delete <b>{{user.email}}</b>?</span>
       </div>
       <ng-template pTemplate="footer">
         <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteUserDialog = false"></button>

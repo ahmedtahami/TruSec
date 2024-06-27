@@ -17,8 +17,18 @@ namespace TruSec.Backend.Controllers
         {
             _userService = userService;
         }
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var users = await _userService.GetAsync();
+            if (!users.Success)
+            {
+                return BadRequest(users);
+            }
+            return Ok(users.Response);
+        }
 
-        [HttpPost("create")]
+        [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] ApplicationUserRegistrationDto userDto)
         {
             var userCreationResult = await _userService.CreateUserAsync(userDto);
@@ -31,7 +41,7 @@ namespace TruSec.Backend.Controllers
             {
                 userCreationResult.Message += emailResult.Message; 
             }
-            return Ok(userCreationResult);
+            return Ok(userCreationResult.Response);
         }
     }
 }
