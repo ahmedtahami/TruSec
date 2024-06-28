@@ -1,0 +1,17 @@
+[Unit]
+Description=Run Tracker Service on Boot
+After=network.target
+
+[Service]
+User=ahmed
+WorkingDirectory=/home/ahmed/env2
+Environment="PATH=/home/ahmed/env2/bin"
+ExecStart=/bin/bash -c 'source /home/ahmed/env2/bin/activate && exec /home/ahmed/env2/bin/python3 /home/ahmed/env2/main.py'
+Restart=on-failure
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=runMyTracker
+
+[Install]
+WantedBy=multi-user.target
