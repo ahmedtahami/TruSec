@@ -14,22 +14,22 @@ export class UserCompanyService {
     constructor(private http: HttpClient) { }
 
     getUserCompanyById(id: number): Observable<UserCompany> {
-        return this.http.get<UserCompany>(`${environment.apiBase}/${this.ENDPOINT_NAME}/${id}`);
+        return this.http.get<UserCompany>(`${environment.apiBase}${this.ENDPOINT_NAME}/${id}`);
     }
 
     getAllUserCompanies(): Observable<UserCompany[]> {
-        return this.http.get<UserCompany[]>(`${environment.apiBase}/${this.ENDPOINT_NAME}`);
+        return this.http.get<UserCompany[]>(`${environment.apiBase}${this.ENDPOINT_NAME}`);
     }
 
     addUserCompany(userCompany: UserCompany): Observable<UserCompany> {
-        return this.http.post<UserCompany>(`${environment.apiBase}/${this.ENDPOINT_NAME}`, userCompany);
+        return this.http.post<UserCompany>(`${environment.apiBase}${this.ENDPOINT_NAME}`, userCompany);
     }
 
     updateUserCompany(id: number, userCompany: UserCompany): Observable<void> {
-        return this.http.put<void>(`${environment.apiBase}/${this.ENDPOINT_NAME}/${id}`, userCompany);
+        return this.http.put<void>(`${environment.apiBase}${this.ENDPOINT_NAME}/${id}`, userCompany);
     }
 
     deleteUserCompany(id: number): Observable<void> {
-        return this.http.delete<void>(`${environment.apiBase}/${this.ENDPOINT_NAME}/${id}`);
+        return this.http.delete<void>(`${environment.apiBase}${this.ENDPOINT_NAME}/${id}`);
     }
 }

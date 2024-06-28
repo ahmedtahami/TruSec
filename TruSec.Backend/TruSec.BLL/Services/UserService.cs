@@ -74,7 +74,6 @@ namespace TruSec.BLL.Services
                 return new ResponseResult<List<ApplicationUserDto>> { Success = false, Message = "Failed to reterive users." };
             }
         }
-
         public async Task<ResponseResult<object>> SendConfirmationEmailAsync(string email)
         {
             try
@@ -82,10 +81,10 @@ namespace TruSec.BLL.Services
                 var user = await _userManager.FindByEmailAsync(email);
                 if (user == null)
                 {
-                    return new ResponseResult<object> { Success = false, Message = "Could not sent confirmation email." };
+                    return new ResponseResult<object> { Success = false, Message = "Could not send confirmation email." };
                 }
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                var confirmationLink = $"{_configuration.GetRequiredSection("ResetPassowrdLink").Value}?userId={user.Id}&token={Uri.EscapeDataString(token)}";
+                var confirmationLink = $"{_configuration.GetRequiredSection("EmailConfirmLink").Value}?userId={user.Id}&token={Uri.EscapeDataString(token)}";
                 var subject = "Confirm your email";
                 var message = $"Please confirm your email by clicking <a href='{confirmationLink}'>here</a>.";
                 await _emailService.SendEmailAsync(user.Email, subject, message);
@@ -93,7 +92,28 @@ namespace TruSec.BLL.Services
             }
             catch (Exception)
             {
-                return new ResponseResult<object> { Success = false, Message = "Could not sent confirmation email." };
+                return new ResponseResult<object> { Success = false, Message = "Could not send confirmation email." };
+            }
+        }
+        public async Task<ResponseResult<object>> SendResetPasswordEmailAsync(string email)
+        {
+            try
+            {
+                var user = await _userManager.FindByEmailAsync(email);
+                if (user == null)
+                {
+                    return new ResponseResult<object> { Success = false, Message = "Could not send reset password email." };
+                }
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var resetPasswordLink = $"{_configuration.GetRequiredSection("ResetPassowrdLink").Value}?userId={user.Id}&token={Uri.EscapeDataString(token)}";
+                var subject = "Set your new password";
+                var message = $"Please set your new password by clicking <a href='{resetPasswordLink}'>here</a>.";
+                await _emailService.SendEmailAsync(user.Email, subject, message);
+                return new ResponseResult<object> { Success = true, Message = "Reset password email sent successfully." };
+            }
+            catch (Exception)
+            {
+                return new ResponseResult<object> { Success = false, Message = "Could not send reset password email." };
             }
         }
     }

@@ -1,1 +1,18 @@
-<p>confirm-email works!</p>
+<!-- email-confirmation.component.html -->
+<div class="confirmation-container">
+  <div *ngIf="loading" class="loading-indicator">
+    <div class="spinner"></div>
+    <p>Confirming your email...</p>
+  </div>
+
+  <div *ngIf="!loading && message" class="confirmation-message">
+    <i class="fas fa-check-circle"></i>
+    <h2>{{ message }}</h2>
+    <button class="btn" (click)="redirectToLogin()">Go to Dashboard</button>
+  </div>
+
+  <div *ngIf="!loading && errorMessage" class="error-message">
+    <i class="fas fa-exclamation-circle"></i>
+    <h2>{{ errorMessage }}</h2>
+  </div>
+</div>

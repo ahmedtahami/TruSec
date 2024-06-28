@@ -15,8 +15,16 @@ namespace TruSec.DAL.DbContexts
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            SeedRolesToDb(builder);
         }
-
+        public void SeedRolesToDb(ModelBuilder builder)
+        {
+            builder.Entity<IdentityRole>().HasData(
+                new IdentityRole() { Name = "Super Admin" },
+                new IdentityRole() { Name = "Company Admin" },
+                new IdentityRole() { Name = "Monitoring Staff" }
+                );
+        }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Truck> Trucks { get; set; }
         public DbSet<TruckDataLog> TruckDataLogs { get; set; }

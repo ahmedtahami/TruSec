@@ -9,9 +9,18 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes =
   [
+    {
+      path: 'confirm-email',
+      component: ConfirmEmailComponent
+    },
+    {
+      path: 'reset-password',
+      component: ResetPasswordComponent
+    },
     {
       path: '500',
       component: ErrorPageComponent,
@@ -32,7 +41,7 @@ const routes: Routes =
     {
       path: '**',
       redirectTo: '/404'
-    }
+    },
   ];
 
 @NgModule({
@@ -49,6 +58,7 @@ const routes: Routes =
       useHash: true
     }),
     PagesModule,
+    FormsModule,
     NgxSpinnerModule,
     FontAwesomeModule
   ],

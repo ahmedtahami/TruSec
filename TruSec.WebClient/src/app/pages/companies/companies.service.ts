@@ -29,6 +29,6 @@ export class CompaniesService {
   }
 
   deleteCompany(id: number): Observable<void> {
-    return this.http.delete<void>(`${environment.apiBase}/${this.ENDPOINT_NAME}/${id}`);
+    return this.http.delete<void>(`${environment.apiBase}${this.ENDPOINT_NAME}/${id}`);
   }
 }

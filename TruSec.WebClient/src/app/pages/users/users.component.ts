@@ -19,7 +19,9 @@ export class UsersComponent {
   rowsPerPageOptions = [5, 10, 20];
   importDto: { file?: File } = {};
   roles: { name: string }[] = [
-    { "name": "Test Role" },
+    { "name": "Company Admin" },
+    { "name": "Monitoring Staff" },
+    { "name": "Super Admin" },
   ];
   constructor(private messageService: MessageService, private userService: UserService) { }
 
