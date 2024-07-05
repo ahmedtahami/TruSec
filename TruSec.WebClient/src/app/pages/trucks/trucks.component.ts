@@ -129,12 +129,13 @@ export class TrucksComponent {
   hideDialogForLiveFeed() {
     this.liveFeedTruckDialog = false;
     this.truck = {};
-    this.dataLogs.getlist();
+    this.liveFeed.ngOnDestroy();
   }
 
   openDataLogsDialog(truckid: number) {
     this.truck = { id: truckid };
     this.truckDataLogsDialog = true;
+    this.dataLogs.getlist();
   }
   hideDialogForDataLogs() {
     this.truckDataLogsDialog = false;
@@ -143,6 +144,7 @@ export class TrucksComponent {
   openTruckSecretsDialog(truck: Truck) {
     this.truck = { ...truck };
     this.truckSecretsDialog = true;
+    this.secrets.getTruckSecrets();
   }
   hideDialogForTruckSecrets() {
     this.truckSecretsDialog = false;

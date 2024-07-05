@@ -22,7 +22,7 @@
     <tr>
       <td style="min-width: 10rem;">
         <span class="p-column-title">TimeStamp</span>
-        {{row.timeStamp}}
+        {{ row.timeStamp | date: 'short' }}
       </td>
       <td style="min-width: 10rem;">
         <span class="p-column-title">Driver Expression</span>

@@ -23,7 +23,10 @@ export class TruckDataLogsComponent implements OnChanges {
 
   getlist() {
     this.truckDataLogService.getTruckDataLogByTruck(this.truckId).subscribe((response: TruckDataLog[]) => {
-      this.list = response;
+      this.list = response.map(log => ({
+        ...log,
+        timeStamp: new Date(log.timeStamp ?? '')
+      }));
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.message });
     });

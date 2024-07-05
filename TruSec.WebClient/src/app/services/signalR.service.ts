@@ -9,7 +9,6 @@ import { environment } from '../../environments/environment';
 export class SignalRService {
   private hubConnection!: signalR.HubConnection;
   constructor() {
-    console.log(environment.defaultUrl);
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl(`${environment.defaultUrl}/expressionsHub`)
       .build();

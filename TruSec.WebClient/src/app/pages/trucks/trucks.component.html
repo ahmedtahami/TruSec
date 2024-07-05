@@ -41,11 +41,11 @@
             </td>
             <td>
               <div class="flex">
-                <button pButton pRipple icon="pi pi-truck" class="p-button-rounded p-button-info mr-2" (click)="openLiveFeed(truck)"></button>
-                <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-primary mr-2" (click)="openDataLogsDialog(truck.id)"></button>
-                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-danger mr-2" (click)="openEdit(truck)"></button>
-                <button pButton pRipple icon="pi pi-lock" class="p-button-rounded p-button-success mr-2" (click)="openTruckSecretsDialog(truck)"></button>
-                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="openDelete(truck)"></button>
+                <button pButton pRipple pTooltip="View Live Feed" tooltipPosition="top" icon="pi pi-truck" class="p-button-rounded p-button-info mr-2" (click)="openLiveFeed(truck)"></button>
+                <button pButton pRipple pTooltip="View Data Logs" tooltipPosition="top"icon="pi pi-list" class="p-button-rounded p-button-primary mr-2" (click)="openDataLogsDialog(truck.id)"></button>
+                <button pButton pRipple pTooltip="Edit" tooltipPosition="top"icon="pi pi-pencil" class="p-button-rounded p-button-danger mr-2" (click)="openEdit(truck)"></button>
+                <button pButton pRipple pTooltip="View Truck Secrets" tooltipPosition="top"icon="pi pi-lock" class="p-button-rounded p-button-success mr-2" (click)="openTruckSecretsDialog(truck)"></button>
+                <button pButton pRipple pTooltip="Delete" tooltipPosition="top"icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="openDelete(truck)"></button>
               </div>
             </td>
           </tr>
@@ -128,7 +128,7 @@
     </p-dialog>
     <!--Dialog For Live Feed-->
     <p-dialog [(visible)]="liveFeedTruckDialog" header="Truck Live Feed" [modal]="true" [style]="{width:'90%', height:'100%'}" (onShow)="onLiveFeedDialogShow()">
-      <div class="flex align-items-center justify-content-center">
+      <div class="block align-items-center justify-content-center">
         <app-truck-live-feed #liveFeed [truck]="truck"></app-truck-live-feed>
       </div>
       <ng-template pTemplate="footer">

@@ -13,8 +13,8 @@ export class TruckLiveFeedComponent implements OnChanges, OnDestroy {
   public expression!: string;
   private map!: L.Map;
   private marker!: L.Marker;
-  public latitude: number = 2233.2222;
-  public longitude: number = 3.44;
+  public latitude!: number;
+  public longitude!: number;
   private truckIcon = L.icon({
     iconUrl: 'assets/logos/logo.png',
     iconSize: [38, 38],
@@ -29,8 +29,9 @@ export class TruckLiveFeedComponent implements OnChanges, OnDestroy {
         if (this.truck && this.truck.id) {
           this.signalRService.joinTruckGroup(this.truck.id);
           this.signalRService.onTruckDataReceived(data => {
+            debugger;
             if (data.truckId === this.truck.id) {
-              this.expression = data.expression ?? '';
+              this.expression = data.driverExpression ?? '';
               this.latitude = data.latitude ?? NaN;
               this.longitude = data.longitude ?? NaN;
               this.updateMarker();

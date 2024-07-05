@@ -1,10 +1,8 @@
 <div>
-  <h1>Real-Time Facial Expression and GPS Location</h1>
-  <p>Truck Id: {{ truck.id  }}</p>
-  <p>Current Expression: {{ expression  }}</p>
-  <p>Latitude: {{ latitude }}</p>
-  <p>Longitude: {{ longitude }}</p>
-  <div id="map" style="height: 400px;"></div>
+  <p>Current Expression: {{ expression ?? 'N/A'  }}</p>
+  <p>Latitude: {{ latitude ?? 'N/A' }}</p>
+  <p>Longitude: {{ longitude ?? 'N/A' }}</p>
+  <div id="map" style="height: 500px"></div>
 </div>
 
 
