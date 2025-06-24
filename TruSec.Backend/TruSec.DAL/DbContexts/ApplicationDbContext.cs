@@ -22,5 +22,7 @@ namespace TruSec.DAL.DbContexts
         public DbSet<TruckDataLog> TruckDataLogs { get; set; }
         public DbSet<TruckSecret> TruckSecrets { get; set; }
         public DbSet<UserCompany> UserCompanies { get; set; }
+        public DbSet<Device> Devices { get; set; }
+        public DbSet<DeviceTelemetry> Telemetries { get; set; }
     }
 }
